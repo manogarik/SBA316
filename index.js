@@ -10,7 +10,7 @@ const passlogin = form2.elements["password"];
 const pwd = form1.elements["password"];
 const pwdcheck = form1.elements["passwordCheck"];
 body.appendChild(error);
-console.log(form1.parentNode);
+
 function validateRegister(evt) {
   //checking username
   console.log(form1.parentNode);
@@ -102,7 +102,6 @@ function validatePasswordCheck() {
   return passcheck;
 }
 
-//VALIDATING THE EMAIL
 
 
 function usercheck(username) {
@@ -169,8 +168,9 @@ button.addEventListener('click' , function()
   const form3 = document.getElementById("login");
   const f = form3.cloneNode(false);
   const ul = document.createElement("ul");
+  ul.setAttribute('id','myData');
   ul.textContent = "The values stored in local Storage";
-  //const fragment = new DocumentFragment();
+  
   for(let i =0;i<localStorage.length;i++)
   {
     const li = document.createElement("li");
@@ -181,5 +181,5 @@ button.addEventListener('click' , function()
   
   ul.append(f);
   error.append(ul);
-  error.style.display = "flex";
+  error.style.display = "block";
 });
