@@ -106,8 +106,8 @@ a:hover {
 }
 #errorDisplay {
   position: absolute;
-  background: #fcc;
-  color: red;
+  background: black;
+  color: rgb(239, 246, 239);
   display: flex;
   width: 500px;
   left: 50%;

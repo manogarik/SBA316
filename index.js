@@ -1,29 +1,25 @@
-const form1 = document.getElementById("registration");
+const body = document.querySelector("body");
+const form1 = window.document.querySelector("#registration");
 const form2 = document.getElementById("login");
-const error = document.getElementById("errorDisplay");
+const error = document.createElement("div");
+error.setAttribute('id', 'errorDisplay');
 const uname = form1.elements["username"];
 const userlogin = form2.elements["username"];
 const passlogin = form2.elements["password"];
-const email = form1.elements["email"];
 const pwd = form1.elements["password"];
 const pwdcheck = form1.elements["passwordCheck"];
-const keepsignin = form2.elements["persist"];
-
+body.appendChild(error);
+console.log(form1.parentNode);
 function validateRegister(evt) {
   //checking username
-  //localStorage.clear();
+  console.log(form1.parentNode);
   evt.preventDefault();
   const user = validateUname();
   if (user === false) {
     return false;
   }
 
-  //validating email
-
-  const emailvalue = validateEmail();
-  if (emailvalue === false) {
-    return false;
-  }
+  
 
   //validate password
   const passvalue = validatePassword();
@@ -38,18 +34,12 @@ function validateRegister(evt) {
     evt.returnValue = false;
     return false;
   }
-  //const obj = {};
-  //obj.username = user.toLowerCase();
-  //obj.email = emailvalue.toLowerCase();
-  //obj.password = passvalue;
-
-  //ADDING USER TO THE LOCAL STORAGE
-  //localStorage.setItem("user", JSON.stringify(obj));
+  
   localStorage.setItem(user.toLowerCase(), passvalue);
   error.textContent = "REGISTRATION SUCCESSFULLY COMPLETED";
-  error.style.display = "flex";
+  error.setAttribute("style","display:flex");
   form1.reset();
-  //const userData = JSON.parse(localStorage.getItem("user"));
+  
 }
 
 //VALIDATING USERNAME
@@ -77,23 +67,17 @@ function validateUname() {
 function validatePassword() {
   const pass = pwd.value;
   //INCLUDE ATLEAST ONE LOWER AND UPPER CASE LETTER
-  const regex1 = /(?=.*[a-z])(?=.*[A-Z])/;
+  const regex1 = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/;
   if (!regex1.test(pass)) {
     error.textContent =
-      "Password should include atleast one lowercase letter and one upper case";
+      "Password should include atleast one lowercase letter and one upper case and one digit";
     error.style.display = "flex";
     pwd.focus();
     return false;
   }
 
-  //CHECKING IF PASSWORD CONTAINS ATLEAST ONE DIGIT
-  const regex2 = /(?=.*[0-9])/;
-  if (!regex2.test(pass)) {
-    error.textContent = "Password should include atleast one digit";
-    error.style.display = "flex";
-    pwd.focus();
-    return false;
-  }
+  
+  
   //CHECKING IF PASSWORD CONTAINS ATLEAST ONE SPECIAL CHARACTER
   const regex3 = /(?=.*[-+_!@#$%^&*., ?])/;
   if (!regex3.test(pass)) {
@@ -102,22 +86,7 @@ function validatePassword() {
     pwd.focus();
     return false;
   }
-  //CHECKING IF IT CONTAINS WORD PASSWORD
-  const regex4 = /\bpassword\b/;
-  if (regex4.test(pass)) {
-    error.textContent = "Password should not contain word Password";
-    error.style.display = "flex";
-    pwd.focus();
-    return false;
-  }
-  //CHECKING IF PASSWORD CONTAINS USERNAME
-  const regex5 = new RegExp(uname.value);
-  if (regex5.test(pass)) {
-    error.textContent = "Password should not contain username";
-    error.style.display = "flex";
-    pwd.focus();
-    return false;
-  }
+  
 
   return pass;
 }
@@ -125,8 +94,7 @@ function validatePassword() {
 function validatePasswordCheck() {
   const passcheck = pwdcheck.value;
   if (passcheck !== pwd.value) {
-    error.textContent = "Passwords dont match";
-    error.style.display = "flex";
+    window.alert("Passwords mismatching");
     pwdcheck.focus();
     return false;
   }
@@ -134,24 +102,7 @@ function validatePasswordCheck() {
 }
 
 //VALIDATING THE EMAIL
-function validateEmail() {
-  const emailval = email.value;
-  const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-  if (!regex.test(emailval)) {
-    error.textContent = "Email address not in right format";
-    error.style.display = "flex";
-    email.focus();
-    return false;
-  }
 
-  if (emailval === "example.com") {
-    error.textContent = "Email address cannot be from domain example.com";
-    error.style.display = "flex";
-    email.focus();
-    return false;
-  }
-  return emailval;
-}
 
 function usercheck(username) {
   for (let i = 0; i < localStorage.length; i++) {
@@ -189,28 +140,22 @@ function passcheck(user, password) {
 //LOGIN FORM VALIDATION
 function validateLogin(evt) {
   evt.preventDefault();
-  error.textContent = "hello";
-  error.style.display = "flex";
+  
   const user = userlogin.value;
   //VALIDATING IF THE USERNAME ALREADY EXISTS
   if (loginCheck(user) === false) {
     return false;
   }
   //KEEPME LOGGEDIN CHECKED
-  if (keepsignin) {
-    error.textContent = "VALIDATION SUCCESSFUL";
-    error.style.display = "flex";
-  }
+  console.log(form2.lastChild);
 
   //VALIDATING IF PASSWORD MATCHING
   const pwd = passlogin.value;
   //console.log(keepsignin);
   if (passcheck(user, pwd) === false) return false;
-  if (keepsignin.checked === true) {
-    error.textContent = "KEEP ME SIGNED IN CHECKED VALIDATION SUCCESSFUL";
-    error.style.display = "flex";
-  } else {
-    error.textContent = "VALIDATION SUCCESS";
+   else {
+    
+    error.innerHTML = "VALIDATION SUCCESS - Screen Width : " + screen.width;
     error.style.display = "flex";
   }
   form2.reset();
