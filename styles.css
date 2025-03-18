@@ -67,7 +67,16 @@ body {
   align-items: center;
   cursor: pointer;
 }
-.form-container input[type="submit"] {
+.form-container input[type="submit"]  {
+  margin-left: auto;
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  background: #55ecfc;
+  cursor: pointer;
+}
+.form-container input[type="button"]  {
   margin-left: auto;
   font-weight: bold;
   padding: 10px;
@@ -77,6 +86,9 @@ body {
   cursor: pointer;
 }
 .form-container input[type="submit"]:hover {
+  background: #ffab40;
+}
+.form-container input[type="button"]:hover {
   background: #ffab40;
 }
 .form-container .input-icon {

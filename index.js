@@ -4,6 +4,7 @@ const form2 = document.getElementById("login");
 const error = document.createElement("div");
 error.setAttribute('id', 'errorDisplay');
 const uname = form1.elements["username"];
+const button = document.getElementById("btn");
 const userlogin = form2.elements["username"];
 const passlogin = form2.elements["password"];
 const pwd = form1.elements["password"];
@@ -162,3 +163,20 @@ function validateLogin(evt) {
 }
 form1.addEventListener("submit", validateRegister);
 form2.addEventListener("submit", validateLogin);
+//DOCUMENT FRAGMENT IMPLEMENTED TO SHOW THE LOCAL STORAGE
+button.addEventListener('click' , function()
+{
+  const ul = document.createElement("ul");
+  ul.textContent = "The values stored in local Storage";
+  const fragment = new DocumentFragment();
+  for(let i =0;i<localStorage.length;i++)
+  {
+    const li = document.createElement("li");
+    const key = localStorage.key(i);
+    li.textContent = key + ":" + localStorage.getItem(key);
+    fragment.append(li);
+  }
+  ul.append(fragment);
+  error.append(ul);
+  error.style.display = "flex";
+});
