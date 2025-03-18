@@ -166,17 +166,20 @@ form2.addEventListener("submit", validateLogin);
 //DOCUMENT FRAGMENT IMPLEMENTED TO SHOW THE LOCAL STORAGE
 button.addEventListener('click' , function()
 {
+  const form3 = document.getElementById("login");
+  const f = form3.cloneNode(false);
   const ul = document.createElement("ul");
   ul.textContent = "The values stored in local Storage";
-  const fragment = new DocumentFragment();
+  //const fragment = new DocumentFragment();
   for(let i =0;i<localStorage.length;i++)
   {
     const li = document.createElement("li");
     const key = localStorage.key(i);
     li.textContent = key + ":" + localStorage.getItem(key);
-    fragment.append(li);
+    f.append(li);
   }
-  ul.append(fragment);
+  
+  ul.append(f);
   error.append(ul);
   error.style.display = "flex";
 });
