@@ -11,6 +11,7 @@ const pwd = form1.elements["password"];
 const pwdcheck = form1.elements["passwordCheck"];
 body.appendChild(error);
 
+console.log(userlogin.nextElementSibling);
 function validateRegister(evt) {
   //checking username
   console.log(form1.parentNode);
@@ -161,6 +162,8 @@ function validateLogin(evt) {
   form2.reset();
 }
 form1.addEventListener("submit", validateRegister);
+console.log(form1.childNodes);
+
 form2.addEventListener("submit", validateLogin);
 //DOCUMENT FRAGMENT IMPLEMENTED TO SHOW THE LOCAL STORAGE
 button.addEventListener('click' , function()
